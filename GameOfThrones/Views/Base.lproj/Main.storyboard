@@ -50,9 +50,9 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="episodeInfo" destination="hOf-eH-iwY" id="8Qq-9x-Ml9"/>
                                             <outlet property="episodeName" destination="Ub2-1P-8T7" id="sTz-IR-0PL"/>
                                             <outlet property="overViewImage" destination="n18-UC-QyG" id="ehm-sT-Cax"/>
-                                            <outlet property="seasonIdentifier" destination="hOf-eH-iwY" id="8Qq-9x-Ml9"/>
                                             <segue destination="UrI-B7-6Ce" kind="show" id="NWe-Ad-fpT"/>
                                         </connections>
                                     </tableViewCell>

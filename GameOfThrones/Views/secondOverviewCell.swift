@@ -11,7 +11,7 @@ import UIKit
 class secondOverviewCell: UITableViewCell {
     @IBOutlet weak var overViewImage: UIImageView!
     @IBOutlet weak var episodeName: UILabel!
-    @IBOutlet weak var seasonIdentifier: UILabel!
+    @IBOutlet weak var episodeInfo: UILabel!
     
     
 
