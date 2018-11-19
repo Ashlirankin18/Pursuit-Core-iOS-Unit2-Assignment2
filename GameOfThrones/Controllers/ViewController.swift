@@ -10,12 +10,14 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var episodeTableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
  private var episodes = GOTEpisode.allEpisodes
     override func viewDidLoad() {
     super.viewDidLoad()
         episodeTableView.dataSource = self
         episodeTableView.delegate = self
+        searchBar.delegate = self
   }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let indexPath = episodeTableView.indexPathForSelectedRow,
@@ -59,4 +61,13 @@ extension ViewController:UITableViewDelegate{
         return 100
     }
     
+}
+extension ViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        guard let searchText = searchBar.text else { return }
+        episodes = GOTEpisode.allEpisodes.filter
+            {$0.name.lowercased().contains(searchText.lowercased())}
+        
+}
 }
