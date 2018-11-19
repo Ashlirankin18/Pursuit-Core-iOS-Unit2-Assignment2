@@ -35,14 +35,14 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let episode = episodes[indexPath.row]
         switch episode.season {
-        case 1,3,5,7:
+        case 2,4,6:
             let episode = episodes[indexPath.row]
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "EpisodeOverviewCell", for: indexPath) as? episodeOverviewCell else { fatalError("episode not found")}
             cell.secondImageView.image = UIImage.init(named: episode.mediumImageID)
             cell.episodeName.text = episode.name
             cell.episodeInfo.text = " S : \(episode.season) E: \(episode.number)"
             return cell
-        case 2,4,6:
+        case 1,3,5,7:
          guard let cell2 = tableView.dequeueReusableCell(withIdentifier: "SecondOverviewCell", for: indexPath) as? secondOverviewCell else { fatalError("episode not found")}
          let episode = episodes[indexPath.row]
          cell2.overViewImage.image = UIImage.init(named: episode.mediumImageID)
