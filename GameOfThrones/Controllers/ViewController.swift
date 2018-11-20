@@ -12,13 +12,20 @@ class ViewController: UIViewController {
     @IBOutlet weak var episodeTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
- private var episodes = GOTEpisode.allEpisodes
+    private var episodes = GOTEpisode.allEpisodes {
+        didSet {
+            episodeTableView.reloadData()
+        }
+    }
+    private var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
     super.viewDidLoad()
         episodeTableView.dataSource = self
         episodeTableView.delegate = self
        searchBar.delegate = self
+        setupRefreshControl()
+        
   }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let indexPath = episodeTableView.indexPathForSelectedRow,
@@ -26,7 +33,16 @@ class ViewController: UIViewController {
         let episode = episodes[indexPath.section][indexPath.row]
        episodeDetails.episode = episode
     }
-
+    private func setupRefreshControl() {
+        refreshControl = UIRefreshControl()
+        episodeTableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(getEpisodes), for: .valueChanged)
+    }
+    
+    @objc private func getEpisodes() {
+        refreshControl.endRefreshing()
+        episodes = GOTEpisode.allEpisodes
+    }
 }
 extension ViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -90,9 +106,9 @@ extension ViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         guard let searchText = searchBar.text else { return }
-        let searchResult = episodes.filter{$0[0].name == searchText}
-           
-        }
+        let episodes1 = episodes.flatMap{$0}
+        episodes = [episodes1.filter{$0.name.lowercased().contains(searchText.lowercased())}]
+        
 }
-    
+    }
 
